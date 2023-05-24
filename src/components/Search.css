@@ -1,0 +1,88 @@
+.searchContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.searchFormContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 90%;
+    
+}
+
+.searchFormContainer >{
+    margin-bottom: 10px;
+    cursor: pointer;
+}   
+
+.petTypeLabel{
+    margin-right: 5px;
+}
+
+.regularSearch{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+.checkbox{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.advancedSearch{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.advancedSearchTop{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 70%;
+}
+
+
+
+.advancedSearchTop > *{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.advancedSearchBottom{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+
+
+.labelForName, .labelForadoptionStatus{
+    margin-right: 2%;
+}
+
+.adoptionStatus{
+    cursor: pointer;
+    width: 450px;
+}
+
+
+
+.searchButton{
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+}

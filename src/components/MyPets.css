@@ -1,0 +1,36 @@
+.myPetsContainer{
+    margin: 0;
+    display: flex !important;
+    flex-direction: column !important;;
+    justify-content: center !important;;
+}
+
+.adoptedList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.fosteredList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.savedList{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.myPetsImage{
+    border-radius: none;
+    height: 50%;
+    border-radius: 50% !important;
+}
+
+.tabList{
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-evenly !important;
+    margin: 8px 0 0 0 !important;
+
+}

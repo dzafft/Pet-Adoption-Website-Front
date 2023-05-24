@@ -1,0 +1,148 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar{
+    background-color: #343A40;
+    display: flex;
+    flex-direction: row !important; 
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+
+.navLeft{
+    display: flex;
+    flex-direction: row;
+    flex-basis: 58%;
+    align-items: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.loginLink{
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.loginLink:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+
+.aboutLink{
+    color: white;
+}
+.navLeft > *{
+    margin-left: 5%;
+}
+
+.navLeft > *:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+.homePageLink{
+    color: white;
+    size: 5em;
+}
+
+.loginLink{
+    color: white;
+    size: 5em;
+    margin-left: auto;
+}
+
+.petLink{
+    color: white;
+    size: 5em;
+}
+
+.profileLink{
+    color: white;
+    size: 5em;
+}
+
+.searchLink{
+    color: white;
+    size: 5em;
+}
+
+.myPetsLink{
+    color: white;
+    size: 5em;
+}
+
+.navButton{
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    height: 40px;
+    width: 70px;
+}
+
+.logo{
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navEmail{
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.navRight{
+    flex-grow: 1;
+    align-items: center;
+
+}
+
+.navRightLoggedIn{
+    display: flex;
+    margin: 0;
+    align-items: center;
+    margin-right: 2%;
+}
+
+.navRightLoggedIn p {
+    margin-left: auto;
+    margin-bottom: 0 !important;
+}
+
+.navRightLoggedOut{
+    display: flex;
+    width: 100%;
+}
+
+.signupLink{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    margin-right: 3%;
+    margin-left: 2%;
+}
+
+.signupLink:hover{
+    text-decoration: underline;
+    color: white;
+}
+
+.dashboardLink{
+    color: white;
+}
+
+.chakra-menu__group p{
+    margin: 0;
+    margin-left: 3%;
+}
+
+.menuButton{
+    margin-left: 2%;
+}

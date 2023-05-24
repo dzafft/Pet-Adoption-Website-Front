@@ -1,0 +1,17 @@
+.homeImg{
+    border-radius: 8%;
+}
+
+.homepage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.homepageInfo{
+    margin-top: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+}

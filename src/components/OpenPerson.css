@@ -1,0 +1,46 @@
+.accountAdopedPetsUl{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    margin-top: 2%;
+}
+
+.openPersonContainerTitle{
+    display: flex;
+    justify-content: center;
+    margin-top: 1%;
+}
+
+.accountAdoptedPets{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.accountFosteredPets{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.accountFosteredPetsUl{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    margin-top: 2%;
+}
+
+.accountSavedPets{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.accountSavedPetsUl{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    margin-top: 2%;
+}
+
+.petModalTitle{
+    margin-right: 8%;
+}
+

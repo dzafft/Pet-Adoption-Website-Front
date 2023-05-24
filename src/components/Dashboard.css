@@ -1,0 +1,74 @@
+.dashboard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.displayUsers{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    margin-top: 2%;
+
+}
+
+.titleDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleDiv Button{
+    
+}
+
+.userLi{
+    margin-left: 2%;
+    margin-right: 2%;
+    background-color: lightblue !important;
+    margin-bottom: 2%;
+}
+
+
+.dashboardTitle{
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+}
+
+.displayAdmins{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 0;
+    margin-top: 2%;
+
+}
+
+.adminLi{
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    background-color: lightgoldenrodyellow !important;
+}
+
+
+.currentUsersTitle, .currentAdminsTitle{
+    margin-left: 1%;
+}
+
+
+.userCardHeader:hover{
+    color: whitesmoke;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.adminCardHeader:hover{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.addPetType:hover{
+    cursor: pointer;
+}

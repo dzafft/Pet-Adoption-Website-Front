@@ -11,13 +11,17 @@ import {Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton, Box, Input}
 
 export default function PetCard(){
     const {id} = useParams();
-    const card = JSON.parse(decodeURIComponent(id));
+    
     const navigate = useNavigate();
+    const randomKey = Math.floor(Math.random() * 1000) + 1;
+
+    const [isMine, setIsMine] = useState(null);
+
 
 
     const {currentUser} = useContext(UserNameContext);
 
-
+    const [pet, setPet] = useState({});
     const [petStatus, setPetStatus] = useState('');
     const [isVisible, setIsVisible] = useState(false);
     const [alertColor, setAlertColor] = useState('');
@@ -28,6 +32,36 @@ export default function PetCard(){
     
     const [undo, setUndo] = useState(false);
     const [typeUndo, setTypeUndo] = useState('');
+
+    const [triggerGetPet, setTriggerGetPet] = useState(0);
+
+    useEffect(()=>{
+        async function getPet(){
+            const res = await axios.get(`http://localhost:8080/pets/petcard/${id}`);
+            console.log(res.data)
+            if (res.data.message === 'Success!'){
+                setPet(res.data.pet)
+            }
+        }
+        getPet()
+    }, [triggerGetPet])
+
+    useEffect(()=>{
+        async function petStatus(){
+            const res = await axios.get(`http://localhost:8080/users/status/${localStorage.getItem('userEmail')}/${id}`);
+            console.log(`http://localhost:8080/users/status/${localStorage.getItem('userEmail')}/${id}`)
+            console.log(res.data)
+            if (res.data.message === 'Success!'){
+                if (res.data.isTrue === true){
+                    setIsMine(true);
+                }
+                else{
+                    setIsMine(false);
+                }
+            }
+        }
+        petStatus()
+    }, [triggerGetPet])
    
 
 
@@ -42,6 +76,8 @@ export default function PetCard(){
                 setIsVisible(prev=>!prev); 
                 setAlertColor('info');
                 setPetStatus('adopted');
+                setTriggerGetPet(Math.floor(Math.random() * 1000000) + 1);
+                setIsMine(true);
             }
          }
          catch(err){
@@ -61,14 +97,13 @@ export default function PetCard(){
     const handleReturn = async (card) =>{
         console.log(card);
         try{
-            console.log((currentUser).token)
-            console.log(currentUser)
             console.log('above')
             const res = await axios.put(`http://localhost:8080/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 setUndo(true);
-                setTypeUndo('returned')
+                setTypeUndo('returned');
+                setTriggerGetPet(Math.floor(Math.random() * 1000000) + 1)
             }
          }
          catch(err){
@@ -88,7 +123,9 @@ export default function PetCard(){
             if (res.data.message === "Success!"){
                 setIsVisible(prev=>!prev); 
                 setAlertColor('warning');
-                setPetStatus('fostered')
+                setPetStatus('fostered');
+                setTriggerGetPet(Math.floor(Math.random() * 1000000) + 1);
+                setIsMine(true);
             }
         }
          catch(err){
@@ -104,6 +141,27 @@ export default function PetCard(){
             }
         }
     }
+    const handleRedirect = () =>{
+        navigate('/mypets')
+    }
+
+    const handleUnfoster = async (card) =>{
+        console.log(card);
+        try{
+     
+            console.log('above')
+            const res = await axios.put(`http://localhost:8080/pets/unfoster/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            console.log(res.data)
+            if (res.data.message === 'Success!'){
+                setUndo(true);
+                setTypeUndo('unfostered');
+                setTriggerGetPet(Math.floor(Math.random() * 1000000) + 1)
+            }
+         }
+         catch(err){
+            console.log(err)
+         }
+    }
 
     const handleSave = async (card) =>{
         console.log(card);
@@ -116,6 +174,7 @@ export default function PetCard(){
             console.log(res.data)
 
             if (res.data.message === "Success!"){
+                
                 setIsVisible(prev=>!prev); 
                 setAlertColor('success'); 
                 setPetStatus('saved');
@@ -142,13 +201,10 @@ export default function PetCard(){
         setUndo(false);
     }
         
-    useEffect(()=>{
-        console.log(card.adoptionStatus)
-    }, [])
-      
 
         return(
         <div className='specificPetPageContainer'>
+            <Button onClick={handleRedirect}>Check out your pet page!</Button>
             <div className='errorAlerts'>
                 {availabilityError && <Alert onClick={handleCloseAvailabilityError} status='error'>
                     <AlertIcon />
@@ -162,44 +218,51 @@ export default function PetCard(){
                     <AlertIcon />
                     You cannot save this pet twice! Click to close.
                 </Alert>}
-                {undo && <Alert onClick={handleCloseUndo} status='error'>
+                {undo && <Alert onClick={handleCloseUndo} status='success'>
                     <AlertIcon />
                     Your pet has been successfully {typeUndo}. Click to close alert.
                 </Alert>}
             </div>
             <div className='specificPetPageBody'>
-                <img className='specificPetImage' src={card.picture} alt='Pet_picture' />
+                <img className='specificPetImage' src={pet.picture} alt='Pet_picture' />
                 <div className='petSpecificInformation'>
-                    <h3 className='petCardName'>{card.name}'s Profile</h3>
+                    <h3 className='petCardName'>{pet.name}'s Profile</h3>
                     <TableContainer>
                     <Table variant='simple'>
                     <Thead>
                     <Tr>
-                        <Th>{card.name}</Th>
+                        <Th>{pet.name}</Th>
                         <Th>Information</Th>
                     </Tr>
                     </Thead>
                     <Tbody>
                     <Tr>
                         <Td>Breed</Td>
-                        <Td>{card.breed}</Td>
+                        <Td>{pet.breed}</Td>
+                    </Tr>
+                    <Tr>
+                        <Td>Dietary restrictions</Td>
+                        <Td>{(pet.dietary)?.map((restriction)=>(
+                            <li key={randomKey}>{restriction}</li>
+                        ))}
+                        </Td>
                     </Tr>
                     <Tr>
                         <Td>Color</Td>
-                        <Td>{card.color}</Td>
+                        <Td>{pet.color}</Td>
                     </Tr>
                     <Tr>
                         <Td>Hypoallergenic?</Td>
-                        {console.log(card.hypoallergnic)}
-                        <Td>{`${card.hypoallergnic}`}</Td>
+                        {console.log(pet.hypoallergnic)}
+                        <Td>{`${pet.hypoallergnic}`}</Td>
                     </Tr>
                     <Tr>
                         <Td>Height</Td>
-                        <Td>{card.height}</Td>
+                        <Td>{pet.height}</Td>
                     </Tr>
                     <Tr>
                         <Td>Weight</Td>
-                        <Td>{card.weight}</Td>
+                        <Td>{pet.weight}</Td>
                     </Tr>
                     </Tbody>
                 </Table>
@@ -228,10 +291,11 @@ export default function PetCard(){
                         </Alert>
                     ) : (
                         <>
-                    {card.adoptionStatus === "Available" &&  <Button onClick={()=>{handleAdopt(card)}} colorScheme='blue'>Adopt</Button>}
-                    {card.adoptionStatus !== "Available" && <Button onClick={()=>{handleReturn(card)}} colorScheme='blue'>Return</Button>}
-                    {card.adoptionStatus === "Available" && <Button onClick={()=>{handleFoster(card)}} colorScheme='yellow'>Foster</Button>}
-                    <Button onClick={()=>{handleSave(card)}} colorScheme='green'>Save</Button>
+                    {pet.adoptionStatus === "Available" && <Button onClick={()=>{handleAdopt(pet)}} colorScheme='blue'>Adopt</Button>}
+                    {pet.adoptionStatus === "Adopted" && isMine && <Button onClick={()=>{handleReturn(pet)}} colorScheme='blue'>Return</Button>}
+                    {pet.adoptionStatus === "Available" && <Button onClick={()=>{handleFoster(pet)}} colorScheme='yellow'>Foster</Button>}
+                    {pet.adoptionStatus === "Fostered" && isMine &&<Button onClick={()=>{handleUnfoster(pet)}} colorScheme='yellow'>Unfoster</Button>}
+                    <Button onClick={()=>{handleSave(pet)}} colorScheme='green'>Save</Button>
                     </>
                     
                     )}

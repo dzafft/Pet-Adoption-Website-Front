@@ -144,7 +144,7 @@ export default function MyPets(){
                             </div>}
                             {adoptedList.map((card)=> (
                                     <Card maxW='sm' className='petCard' key={card._id}>
-                                        <CardBody onClick={()=>{window.open(`/pets/${encodeURIComponent(JSON.stringify(card))}`)}} className='cardBody'>
+                                        <CardBody onClick={()=>{window.open(`/pets/${card.id}`)}} className='cardBody'>
                                             <Image className='myPetsImage' src={card.picture} alt='Profile_pic' borderRadius='lg' />
                                             <Stack mt='6' spacing='3'>
                                                 

@@ -22,7 +22,9 @@ export default function Dashboard(){
     const [height, setHeight] = useState('');
     const [petBio, setPetBio] = useState('');
     const [uploadedImage, setUploadedImage] = useState({});
-    const [petType, setPetType] = useState('')
+    const [petType, setPetType] = useState('');
+
+    
 
 
     const [show, setShow] = useState(false);
@@ -132,6 +134,22 @@ export default function Dashboard(){
                         <Form.Control onChange={(e)=>setWeight(e.target.value)} type="number" value={weight} />
                         </Form.Group>
                     </Row>
+                    {/* <Row>
+                        <Form.Group as={Col} controlId="dietary">
+                        <Form.Label>Dietary restriction</Form.Label>
+                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
+                        </Form.Group>
+
+                        <Form.Group as={Col} controlId="dietary">
+                        <Form.Label>Dietary restriction</Form.Label>
+                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
+                        </Form.Group>
+
+                        <Form.Group as={Col} controlId="dietary">
+                        <Form.Label>Dietary restriction</Form.Label>
+                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
+                        </Form.Group>
+                    </Row> */}
                     <Row>
                         <Form.Group as={Col} controlId="newPetImage">
                         <Form.Label>Image</Form.Label>

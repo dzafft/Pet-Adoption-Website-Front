@@ -19,7 +19,7 @@ export default function Pets(props){
             console.log(currentUser)
             console.log(localStorage.getItem('currentUser'))
             console.log((card))
-            window.open(`/pets/${encodeURIComponent(JSON.stringify(card))}`);
+            window.open(`/pets/${card.id}`);
         }
         else{
             alert('Not signed in!!')
@@ -36,7 +36,7 @@ export default function Pets(props){
         
         <div className='petsContainer'>
             <ul className='petUl'>
-                {petList?.map((card, index)=> (
+                {petList?.map((card)=> (
                     <Card className='petCard' key={card._id}>
                         <CardBody onClick={()=>handleOpenPet(card)} className='cardBody' >
                         

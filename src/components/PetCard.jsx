@@ -1,4 +1,4 @@
-import React, { useState, useContext}from 'react';
+import React, {useEffect, useState, useContext}from 'react';
 import UserNameContext from '../UserNameContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import './PetCard.css';
@@ -6,8 +6,6 @@ import axios from 'axios';
 import { Button } from '@chakra-ui/react';
 import {Table, Thead, Tbody, Tr, Th, Td, TableContainer} from '@chakra-ui/react';
 import {Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton, Box, Input} from '@chakra-ui/react';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -16,10 +14,6 @@ export default function PetCard(){
     const card = JSON.parse(decodeURIComponent(id));
     const navigate = useNavigate();
 
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const {currentUser} = useContext(UserNameContext);
 
@@ -27,6 +21,13 @@ export default function PetCard(){
     const [petStatus, setPetStatus] = useState('');
     const [isVisible, setIsVisible] = useState(false);
     const [alertColor, setAlertColor] = useState('');
+
+    const [availabilityError, setAvailbilityError] = useState(false);
+    const [savabilityError, setSavabilityError] = useState(false)
+    const [loginError, setLoginError] = useState(false);
+    
+    const [undo, setUndo] = useState(false);
+    const [typeUndo, setTypeUndo] = useState('');
    
 
 
@@ -37,6 +38,38 @@ export default function PetCard(){
             console.log(card)
             const res = await axios.put(`http://localhost:8080/pets/adopt/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data);
+            if (res.data.message === "Success!"){
+                setIsVisible(prev=>!prev); 
+                setAlertColor('info');
+                setPetStatus('adopted');
+            }
+         }
+         catch(err){
+            console.log(err);
+            if (err.response.data.message === "Pet not available!"){
+                setAvailbilityError(true);
+            }
+            else if (err.response.data.message === "Failed to authenticate"){
+                setLoginError(true);
+                localStorage.removeItem('token');
+                navigate('/login')
+
+            }
+         }
+    }
+
+    const handleReturn = async (card) =>{
+        console.log(card);
+        try{
+            console.log((currentUser).token)
+            console.log(currentUser)
+            console.log('above')
+            const res = await axios.put(`http://localhost:8080/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            console.log(res.data)
+            if (res.data.message === 'Success!'){
+                setUndo(true);
+                setTypeUndo('returned')
+            }
          }
          catch(err){
             console.log(err)
@@ -51,10 +84,24 @@ export default function PetCard(){
             console.log('above')
             const res = await axios.put(`http://localhost:8080/pets/foster/${card.id}`, {}, { headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` } });
 
-            console.log(res.data)
+            console.log(res.data);
+            if (res.data.message === "Success!"){
+                setIsVisible(prev=>!prev); 
+                setAlertColor('warning');
+                setPetStatus('fostered')
+            }
         }
          catch(err){
             console.log(err)
+            console.log(err);
+            if (err.response.data.message === "Pet not available!"){
+                setAvailbilityError(true);
+            }
+            else if (err.response.data.message === "Failed to authenticate"){
+                setLoginError(true);
+                localStorage.removeItem('token');
+                navigate('/login')
+            }
         }
     }
 
@@ -67,51 +114,59 @@ export default function PetCard(){
             
             const res = await axios.put(`http://localhost:8080/pets/save/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
+
+            if (res.data.message === "Success!"){
+                setIsVisible(prev=>!prev); 
+                setAlertColor('success'); 
+                setPetStatus('saved');
+            }
         }
         catch(err){
             console.log(err)
+            if (err.response.data.message === "Pet already saved"){
+                setSavabilityError(true);
+            }
         }
     }
 
+
+    const handleCloseAvailabilityError = () =>{
+        setAvailbilityError(false);
+    }
+
+    const handleCloseSavabilityError = () =>{
+        setSavabilityError(false);
+    }
     
-    
+    const handleCloseUndo = () =>{
+        setUndo(false);
+    }
         
+    useEffect(()=>{
+        console.log(card.adoptionStatus)
+    }, [])
       
 
         return(
         <div className='specificPetPageContainer'>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                <Modal.Title>{card.name}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <Form>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="name@example.com"
-                        autoFocus
-                    />
-                    </Form.Group>
-                    <Form.Group
-                    className="mb-3"
-                    controlId="exampleForm.ControlTextarea1"
-                    >
-                    <Form.Label>Example textarea</Form.Label>
-                    <Form.Control as="textarea" rows={3} />
-                    </Form.Group>
-                </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Save Changes
-                </Button>
-                </Modal.Footer>
-            </Modal>
+            <div className='errorAlerts'>
+                {availabilityError && <Alert onClick={handleCloseAvailabilityError} status='error'>
+                    <AlertIcon />
+                    This pet is not available! Click to close.
+                </Alert>}
+                {loginError && <Alert status='warning'>
+                    <AlertIcon />
+                    Your status has expired, please log in again
+                </Alert>}
+                {savabilityError && <Alert onClick={handleCloseSavabilityError} status='error'>
+                    <AlertIcon />
+                    You cannot save this pet twice! Click to close.
+                </Alert>}
+                {undo && <Alert onClick={handleCloseUndo} status='error'>
+                    <AlertIcon />
+                    Your pet has been successfully {typeUndo}. Click to close alert.
+                </Alert>}
+            </div>
             <div className='specificPetPageBody'>
                 <img className='specificPetImage' src={card.picture} alt='Pet_picture' />
                 <div className='petSpecificInformation'>
@@ -152,14 +207,14 @@ export default function PetCard(){
                 </div>
             </div>
             <div className='petCardStatus'>
-                    
+    
                     {isVisible ? (
                     <Alert status={alertColor}>
                         <AlertIcon />
                         <Box>
                             <AlertTitle>Success!</AlertTitle>
                             <AlertDescription>
-                            Congradulations! Your has been {petStatus}!
+                            Your has been {petStatus}!
                             </AlertDescription>
                         </Box>
                         <CloseButton
@@ -173,12 +228,15 @@ export default function PetCard(){
                         </Alert>
                     ) : (
                         <>
-                    <Button onClick={()=>{setIsVisible(prev=>!prev); setAlertColor('info'); setPetStatus('adopted'); handleAdopt(card)}} colorScheme='blue'>Adopt</Button>
-                    <Button onClick={()=>{setIsVisible(prev=>!prev); setAlertColor('warning'); setPetStatus('fostered'); handleFoster(card)}} colorScheme='yellow'>Foster</Button>
-                    <Button onClick={()=>{setIsVisible(prev=>!prev); setAlertColor('success'); setPetStatus('saved'); handleSave(card)}} colorScheme='green'>Save</Button>
+                    {card.adoptionStatus === "Available" &&  <Button onClick={()=>{handleAdopt(card)}} colorScheme='blue'>Adopt</Button>}
+                    {card.adoptionStatus !== "Available" && <Button onClick={()=>{handleReturn(card)}} colorScheme='blue'>Return</Button>}
+                    {card.adoptionStatus === "Available" && <Button onClick={()=>{handleFoster(card)}} colorScheme='yellow'>Foster</Button>}
+                    <Button onClick={()=>{handleSave(card)}} colorScheme='green'>Save</Button>
                     </>
+                    
                     )}
             </div>
+                
         </div>
         
     )

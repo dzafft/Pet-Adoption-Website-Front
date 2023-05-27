@@ -1,5 +1,5 @@
-.petsContainer{
-}
+
+
 
 
 
@@ -16,6 +16,11 @@
     align-items: center;
     cursor: pointer;
     
+}
+
+.heartContainer{
+    display: flex;
+    align-self: flex-end;
 }
 
 .petUl{

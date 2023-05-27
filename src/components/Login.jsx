@@ -59,7 +59,12 @@ export default function Login(){
                     Submit
                 </Button>
                 < br />
-                <Link to='/signup'>Don't have an account yet? Signup</Link>
+                <p>
+                Don't have an account yet?
+                    <Link style={{ color: 'teal', textDecoration: 'underline' }} to="/signup">
+                        Sign up.
+                </Link>
+        </p>
             </Form>
             
         </div>

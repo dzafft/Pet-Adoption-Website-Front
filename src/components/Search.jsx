@@ -1,18 +1,21 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useRef, useContext, useEffect} from 'react';
 import './Search.css';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Pets from './Pets';
 import UserNameContext from '../UserNameContext';
-import { Select, Checkbox } from '@chakra-ui/react';
-import { FormLabel, Input, Button, RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from '@chakra-ui/react';
+import {Select, Switch} from '@chakra-ui/react';
+import {FormLabel, Input, Button, RangeSlider, RangeSliderTrack, RangeSliderFilledTrack, RangeSliderThumb } from '@chakra-ui/react';
 
 
 
 export default function Search(){
-    const [adoptionStatus, setAdoptionStatus] = useState('')
+    const checkboxRef = useRef(null);
+    const location = useLocation();
     const [petType, setPetType] = useState('');
     const [name, setName] = useState('');
     const [isChecked, setIsChecked] = useState(false);    
+    const [adoptionStatus, setAdoptionStatus] = useState('');
     const [isLoading, setIsLoading] = useState(false)
 
 
@@ -20,18 +23,42 @@ export default function Search(){
     const [heightSlider, setHeightSlider] = useState([1, 100]);
 
 
-    const {setPetList} = useContext(UserNameContext)
+    const {setPetList} = useContext(UserNameContext);
+
+    useEffect(()=>{
+        if (checkboxRef.current) {
+            checkboxRef.current.checked = true;
+        }
+        else{
+            console.log('checkkkkkk')
+        }
+        const searchParams = new URLSearchParams(location.search);
+        const availableRedirect = searchParams.get('availableRedirect');
+        const isTrue = searchParams.get('isTrue');
+        if (checkboxRef.current ) {
+            checkboxRef.current.checked = true;
+        }
+
+        if (availableRedirect && isTrue){
+            setAdoptionStatus(availableRedirect);
+            setIsChecked(isTrue);
+        }
+
+
+    }, [location.search]);
+
 
 
     const handleSearch = async () =>{
         setIsLoading(true)
         try{
+            console.log(name, petType, weightSlider, heightSlider)
             const res = await axios.get(`http://localhost:8080/pets?type=${petType}&weightmin=${weightSlider[0]}&weightmax=${weightSlider[1]}&heightmin=${heightSlider[0]}&heightmax=${heightSlider[1]}&adoptionStatus=${adoptionStatus}&name=${name}`)
             
             
-            console.log(res.data)
+            console.log(res.data);
             setPetList(res.data);
-            setIsLoading(false)
+            setIsLoading(false);
         }
         catch (err){
             console.log(err)
@@ -62,24 +89,25 @@ export default function Search(){
     return (
         <div className='searchContainer'>
             <div className='searchFormContainer'>
-                <label className='labelForCheckbox' htmlFor="checkbox" style={{ fontSize: '40px' }}>{isChecked? 'Advanced Search': 'Regular Search'}</label>
+                <FormLabel className='labelForCheckbox' htmlFor="switch" style={{ fontSize: '40px' }}>{isChecked? 'Advanced Search': 'Regular Search'}</FormLabel>
                 <div className='regularSearch'>
-                    <label className='petTypeLabel' htmlFor="petType">Species:</label>
+                    <FormLabel className='petTypeLabel' htmlFor="petType">Species:</FormLabel>
                     <Select className='petType' value={petType} onChange={(e)=>setPetType(e.target.value)}  placeholder='Any'>
                         <option value='Dog'>Dog</option>
                         <option value='Cat'>Cat</option>
                     </Select>
-                    <Checkbox checked={isChecked} onChange={handleChange} className='checkbox'></Checkbox>
+                    <FormLabel className='labelForSwitch' HtmlFor='switch'>Advanced Search?</FormLabel>
+                    <Switch colorScheme='red' size='lg' ref={checkboxRef} checked={isChecked} onChange={handleChange} className='switch'></Switch>
                 </div>
                 {isChecked && (
                 <div className='advancedSearch'>
                     <div className='advancedSearchTop'>
                         <div className='labelForNameContainer'>
-                            <label className='labelForName' for='petNameInput'>Name: </label>
+                            <FormLabel className='labelForName' htmlFor='petNameInput'>Name: </FormLabel>
                             <Input className='petNameInput' value={name} onChange={(e)=>setName(e.target.value)} placeholder='Pet name' />
                         </div>
                         <div className='labelForStatusContainer'> 
-                            <label className='labelForadoptionStatus' for='adoptionStatus'>Status: </label>
+                            <FormLabel className='labelForadoptionStatus' HtmlFor='adoptionStatus'>Status: </FormLabel>
                             <Select className='adoptionStatus' value={adoptionStatus} onChange={(e)=>setAdoptionStatus(e.target.value)} placeholder='Any'>
                                     <option value="Adopted">Adopted</option>
                                     <option value="Fostered">Fostered</option>
@@ -106,7 +134,7 @@ export default function Search(){
                         </RangeSlider>
                     </div>
                 </div>)}
-                <Button className='searchButton' onClick={handleSearch}>Search</Button>
+                <Button colorScheme='teal' loadingText='Loading' isLoading={isLoading} className='searchButton' onClick={handleSearch}>Search</Button>
             </div>
             <Pets isLoading={isLoading} />
         </div>

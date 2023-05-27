@@ -1,17 +1,77 @@
-.homeImg{
-    border-radius: 8%;
-}
 
 .homepage{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #f7f0e8;
+
+    
+}
+
+.homeImg{
+    margin-top: -1%;
+}
+.homepageTitle{
+    margin-top: 1%;
+    color: #0e0e0e;
 }
 
 .homepageInfo{
-    margin-top: 2%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 90%;
+    background-color: #f7f0e8;
+}
+
+.petUlHomepage{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-left: 2%;
+    padding-right: 2%;
+
+}
+
+.petUlHomepage > *{
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+
+}
+
+.petUlHomepage li:hover{
+    cursor: default;
+}
+
+.lastHomepageCard{
+    height: 70%;
+    background-color: lightblue !important;
+    mix-blend-mode: multiply;
+}
+
+.lastCardImg {
+    background-color: transparent;
+    mix-blend-mode: multiply;
+}
+
+.availablePets{
+    margin-top: -5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lastCardFooter{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lastCardButton{
+    width: 100%;
+}
+
+
+.availablePetsTitle{
+    margin-bottom: 2%;
 }

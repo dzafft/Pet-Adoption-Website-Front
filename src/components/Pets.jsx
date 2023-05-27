@@ -1,11 +1,13 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import './Pets.css';
 import UserNameContext from '../UserNameContext';
-import { Badge, Card, CardBody, CardFooter, Image, Stack, Text, Divider} from '@chakra-ui/react'
+import {Button, Badge, Card, CardBody, CardFooter, Image, Stack, Text, Divider} from '@chakra-ui/react'
 import {useNavigate} from 'react-router-dom';
 
 export default function Pets(props){
     const {petList, currentUser} = useContext(UserNameContext);
+
+
    
 
     const navigate = useNavigate();
@@ -33,21 +35,18 @@ export default function Pets(props){
     return (
         
         <div className='petsContainer'>
-            {props.isLoading && <div className="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>}
             <ul className='petUl'>
-                {petList?.map((card)=> (
+                {petList?.map((card, index)=> (
                     <Card className='petCard' key={card._id}>
-                        <CardBody className='cardBody' onClick={()=>handleOpenPet(card)}>
+                        <CardBody onClick={()=>handleOpenPet(card)} className='cardBody' >
+                        
                             <Image className='searchListImage' src={card.picture} alt='Photo unavailable' />
                             <Stack className='cardStack' mt='6' spacing='3'>
-                                
-                                
                                 <Text color='black' fontSize='4xl'>
                                     {card.name}
                                 </Text>
                             </Stack>
+                            
                         </CardBody>
                     <Divider />
                     <CardFooter>

@@ -13,12 +13,20 @@ export default function MyAccount(){
     const [isChecked, setIsChecked] = useState(false);
     const [isInputsDisabled, setIsInputsDisabled] = useState(true);
     
-    const [email, setEmail] = useState(currentUser.email);
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState(currentUser.firstName);
-    const [lastName, setLastName] = useState(currentUser.lastName);
-    const [number, setNumber] = useState(currentUser.number);
-    const [bio, setBio] = useState(currentUser.bio);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [number, setNumber] = useState('');
+    const [bio, setBio] = useState('');
+
+    useEffect(()=>{
+        setEmail(currentUser?.email);
+        setFirstName(currentUser?.firstName)
+        setLastName(currentUser?.lastName)
+        setNumber(currentUser?.number)
+        setBio(currentUser?.bio)
+    })
 
 
     

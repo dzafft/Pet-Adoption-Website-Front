@@ -56,8 +56,8 @@ export default function Navbar(){
             <nav className='navbar'>
                 <div className='navLeft'>
                     <img className='logo' src={require('./petLogo.png')} alt='petLogo' />
-                    {(currentUser?.isAdmin === true) ?  <Link className='dashboardLink' to='/dashboard'>Dashboard</Link>:
-                    <Link className='homePageLink' to='/homepage'>HomePage</Link>}
+                    <Link className='homePageLink' to='/homepage'>HomePage</Link>
+                    {(currentUser?.isAdmin === true) &&  <Link className='dashboardLink' to='/dashboard'>Admin Dashboard</Link>}
                     <Link className='searchLink' to='/search'>Search</Link>
                 
                     

@@ -24,6 +24,7 @@ export default function Dashboard(){
     const [uploadedImage, setUploadedImage] = useState({});
     const [petType, setPetType] = useState('');
 
+    const [dietary, setdietary] = useState([]);
     
 
 
@@ -135,20 +136,12 @@ export default function Dashboard(){
                         </Form.Group>
                     </Row>
                     {/* <Row>
-                        <Form.Group as={Col} controlId="dietary">
-                        <Form.Label>Dietary restriction</Form.Label>
-                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="dietary">
-                        <Form.Label>Dietary restriction</Form.Label>
-                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
-                        </Form.Group>
-
-                        <Form.Group as={Col} controlId="dietary">
-                        <Form.Label>Dietary restriction</Form.Label>
-                        <Form.Control onChange={(e)=>setName(e.target.value)} value={name} type="text" />
-                        </Form.Group>
+                        {dietary.map((restriction)=>(
+                            <Form.Group as={Col} controlId="restriction">
+                            <Form.Label>Restriction #{dietary.length +1}</Form.Label>
+                            <Form.Control type="text" placeholder='restriction' onChange={handleImageUpload} value={restriction.type} />
+                            </Form.Group>
+                        ))}
                     </Row> */}
                     <Row>
                         <Form.Group as={Col} controlId="newPetImage">

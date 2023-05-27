@@ -242,11 +242,19 @@ export default function PetCard(){
                     </Tr>
                     <Tr>
                         <Td>Dietary restrictions</Td>
-                        <Td>{(pet.dietary)?.map((restriction)=>(
-                            <li key={randomKey}>{restriction}</li>
-                        ))}
-                        </Td>
-                    </Tr>
+                        {((pet.dietary)?.length === 0)?
+                        <Td>
+                            <ul>
+                                {(pet.dietary)?.map((restriction) => (
+                                    <li key={randomKey}>{restriction}</li>
+                                ))}
+                            </ul>
+                        </Td> : 
+                        <Td>
+                            None
+                        </Td>}
+                    </Tr> 
+                    
                     <Tr>
                         <Td>Color</Td>
                         <Td>{pet.color}</Td>

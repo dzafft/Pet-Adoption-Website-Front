@@ -25,7 +25,7 @@ export default function Login(){
             password: password
         }
         try{
-            const res = await axios.post('http://localhost:8080/login', loginUser)
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/login`, loginUser)
             const data = res.data.user;
             console.log(data)
             console.log('no error');

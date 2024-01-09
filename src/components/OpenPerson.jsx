@@ -54,7 +54,7 @@ export default function OpenPerson(){
 
     useEffect(()=>{
         async function getAccount(){
-            const res = await axios.get(`http://localhost:8080/users/person/${id}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/person/${id}`);
             console.log(res.data)
             setAccount(res.data.user);
         }
@@ -64,7 +64,7 @@ export default function OpenPerson(){
 
     useEffect(()=>{
         async function getAdoptedPets(){
-            const res = await axios.get(`http://localhost:8080/users/adopted/${account.email}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/adopted/${account.email}`)
             console.log(res.data);
             setAccountAdoptedList(res.data.petList);
         }      
@@ -74,7 +74,7 @@ export default function OpenPerson(){
 
     useEffect(()=>{
         async function getFosteredPets(){
-            const res = await axios.get(`http://localhost:8080/users/fostered/${account.email}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/fostered/${account.email}`)
 
             console.log(res.data)
             setAccountFosteredList(res.data.petList)
@@ -85,7 +85,7 @@ export default function OpenPerson(){
 
     useEffect(()=>{
         async function getSavedPets(){
-            const res = await axios.get(`http://localhost:8080/users/saved/${account.email}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/saved/${account.email}`)
 
             console.log(res.data)
             setAccountSavedList(res.data.petList)
@@ -121,7 +121,7 @@ export default function OpenPerson(){
             
 
             
-            const res = await axios.put(`http://localhost:8080/pets/update/${modalPet._id}`, combinedObject, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/update/${modalPet._id}`, combinedObject, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
             console.log(res.data);
 
             if (res.data.message === 'Success'){

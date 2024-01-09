@@ -53,7 +53,7 @@ export default function Search(){
         setIsLoading(true)
         try{
             console.log(name, petType, weightSlider, heightSlider)
-            const res = await axios.get(`http://localhost:8080/pets?type=${petType}&weightmin=${weightSlider[0]}&weightmax=${weightSlider[1]}&heightmin=${heightSlider[0]}&heightmax=${heightSlider[1]}&adoptionStatus=${adoptionStatus}&name=${name}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets?type=${petType}&weightmin=${weightSlider[0]}&weightmax=${weightSlider[1]}&heightmin=${heightSlider[0]}&heightmax=${heightSlider[1]}&adoptionStatus=${adoptionStatus}&name=${name}`)
             
             
             console.log(res.data);

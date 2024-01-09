@@ -44,7 +44,7 @@ export default function Dashboard(){
 
     useEffect(()=>{
         async function getUsers(){
-            const res = await axios.get(`http://localhost:8080/users/list/${hello}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/list/${hello}`);
             console.log(res.data);
             setUserList(res.data.users);
             setAdminList(res.data.admins)
@@ -82,7 +82,7 @@ export default function Dashboard(){
                 combinedObject.append(key, newPet[key]);
             }
 
-            const res = await axios.post(`http://localhost:8080/pets/addpet`, combinedObject, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/pets/addpet`, combinedObject, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
             console.log(res.data);
         }
         catch(err){

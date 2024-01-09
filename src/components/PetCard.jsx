@@ -37,7 +37,7 @@ export default function PetCard(){
 
     useEffect(()=>{
         async function getPet(){
-            const res = await axios.get(`http://localhost:8080/pets/petcard/${id}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/petcard/${id}`);
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 setPet(res.data.pet)
@@ -48,8 +48,8 @@ export default function PetCard(){
 
     useEffect(()=>{
         async function petStatus(){
-            const res = await axios.get(`http://localhost:8080/users/status/${localStorage.getItem('userEmail')}/${id}`);
-            console.log(`http://localhost:8080/users/status/${localStorage.getItem('userEmail')}/${id}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/status/${localStorage.getItem('userEmail')}/${id}`);
+            console.log(`${process.env.REACT_APP_API_URL}/users/status/${localStorage.getItem('userEmail')}/${id}`)
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 if (res.data.isTrue === true){
@@ -70,7 +70,7 @@ export default function PetCard(){
         console.log(localStorage.getItem('token'))
          try{
             console.log(card)
-            const res = await axios.put(`http://localhost:8080/pets/adopt/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/adopt/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data);
             if (res.data.message === "Success!"){
                 setIsVisible(prev=>!prev); 
@@ -98,7 +98,7 @@ export default function PetCard(){
         console.log(card);
         try{
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 setUndo(true);
@@ -117,7 +117,7 @@ export default function PetCard(){
         try{
             console.log(currentUser)
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/foster/${card.id}`, {}, { headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/foster/${card.id}`, {}, { headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` } });
 
             console.log(res.data);
             if (res.data.message === "Success!"){
@@ -150,7 +150,7 @@ export default function PetCard(){
         try{
      
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/unfoster/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/unfoster/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 setUndo(true);
@@ -170,7 +170,7 @@ export default function PetCard(){
             console.log('above');
             console.log(localStorage.getItem('token'))
             
-            const res = await axios.put(`http://localhost:8080/pets/save/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/save/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
 
             if (res.data.message === "Success!"){

@@ -33,7 +33,7 @@ export default function HomePage(){
     async function getAvailablePets(){
       const adoptionStatus = 'Available';
       try{
-        const res = await axios.get(`http://localhost:8080/pets/availablepets?adoptionStatus=${adoptionStatus}`)
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/pets/availablepets?adoptionStatus=${adoptionStatus}`)
         console.log(res.data);
         if (res.data.message === "Success"){
           const list = res.data.pet.splice(0, 4)
@@ -50,32 +50,7 @@ export default function HomePage(){
     }
     getAvailablePets()
   }, []);
-
-  // useEffect(()=>{
-  //   async function getSavedPets(){
-  //     const oo = 'oo';
-  //     try{
-  //       const res = await axios.get(`http://localhost:8080/pets/mostsavedpets/${oo}`)
-  //       console.log(res.data);
-  //       if (res.data.message === "Success"){
-  //         mostSavedPets(res.data.petList);
-  //       }
-        
-
-  //     }
-  //     catch(err){
-  //       console.log(err)
-  //     }
-      
-  //   }
-  //   if (1 === 3){
-  //     getSavedPets()
-  //   }
-  // }, []);
-
-
-
-
+  
   const handleMeetAvailablePets = () =>{
     const availableRedirect = "Available";
     const isTrue = true

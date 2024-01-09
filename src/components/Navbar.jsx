@@ -25,7 +25,7 @@ export default function Navbar(){
     useEffect(()=>{
         async function getUser(){
             console.log(localStorage.getItem('userEmail'))
-            const res = await axios.get(`http://localhost:8080/users/${localStorage.getItem('userEmail')}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/${localStorage.getItem('userEmail')}`);
             console.log(res.data);
             if (res.data.message === 'Success!'){
                 setCurrentUser(res.data.user);

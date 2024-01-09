@@ -58,7 +58,7 @@ export default function Signup(){
             setPhone('')
             
             try{
-                const res = await axios.post('http://localhost:8080/signup', newUser)
+                const res = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, newUser)
                 console.log(res.data)
                 setCurrentUser({
                     email: res.data.dbUser.email,

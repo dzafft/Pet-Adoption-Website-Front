@@ -20,7 +20,7 @@ export default function MyPets(){
             console.log((currentUser).token)
             console.log(currentUser)
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/return/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 const filteredList = adoptedList.filter((pet)=> pet.id !== card.id);
@@ -43,7 +43,7 @@ export default function MyPets(){
         try{
             console.log(currentUser)
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/unsave/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/unsave/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 const filteredList = savedList.filter((pet)=> pet.id !== card.id);
@@ -62,7 +62,7 @@ export default function MyPets(){
             console.log((currentUser).token)
             console.log(currentUser)
             console.log('above')
-            const res = await axios.put(`http://localhost:8080/pets/unfoster/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/pets/unfoster/${card.id}`, {}, { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } });
             console.log(res.data)
             if (res.data.message === 'Success!'){
                 const filteredList = fosteredList.filter((pet)=> pet.id !== card.id);
@@ -81,8 +81,8 @@ export default function MyPets(){
     useEffect(()=>{
         async function getAdoptedPets(){
             setIsLoading(true)
-            const res = await axios.get(`http://localhost:8080/users/adopted/${localStorage.getItem('userEmail')}`)
-            console.log(`http://localhost:8080/users/adopted/${localStorage.getItem('email')}`);
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/adopted/${localStorage.getItem('userEmail')}`)
+            console.log(`${process.env.REACT_APP_API_URL}/users/adopted/${localStorage.getItem('email')}`);
             console.log(res.data);
             setAdoptedList(res.data.petList);
             setIsLoading(false)
@@ -94,7 +94,7 @@ export default function MyPets(){
     useEffect(()=>{
         async function getFosteredPets(){
             setIsLoading(true)
-            const res = await axios.get(`http://localhost:8080/users/fostered/${localStorage.getItem('userEmail')}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/fostered/${localStorage.getItem('userEmail')}`)
 
             console.log(res.data)
             setFosteredList(res.data.petList)
@@ -107,7 +107,7 @@ export default function MyPets(){
     useEffect(()=>{
         async function getSavedPets(){
             setIsLoading(true)
-            const res = await axios.get(`http://localhost:8080/users/saved/${localStorage.getItem('userEmail')}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/users/saved/${localStorage.getItem('userEmail')}`)
 
             console.log(res.data)
             setSavedList(res.data.petList)

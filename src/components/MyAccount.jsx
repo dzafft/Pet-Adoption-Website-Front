@@ -53,7 +53,7 @@ export default function MyAccount(){
         }
 
         try{
-            const res = await axios.put(`http://localhost:8080/users/update/${currentUser.email}`, updateUser, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/users/update/${currentUser.email}`, updateUser, {headers: { Authorization: `Bearer ${(localStorage.getItem('token'))}` }});
 
             console.log(res.data);
             if (res.data.message = 'Success'){

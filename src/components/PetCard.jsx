@@ -224,7 +224,7 @@ export default function PetCard(){
                 </Alert>}
             </div>
             <div className='specificPetPageBody'>
-                <img className='specificPetImage' src={pet.picture} alt='Pet_picture' />
+                <div class='specificPetImage'><img className='specificPetImage' src={pet.picture} alt='Pet_picture' /></div>
                 <div className='petSpecificInformation'>
                     <h3 className='petCardName'>{pet.name}'s Profile</h3>
                     <TableContainer>

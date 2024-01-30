@@ -35,3 +35,12 @@
     justify-content: center;
     align-items: center; /* Added align-items: center */
 }
+
+@media (max-width: 400px) {
+    .searchListImage{
+        max-height: 200px;
+    }
+    .cardBody{
+        padding: 0 !important;
+    }
+  }

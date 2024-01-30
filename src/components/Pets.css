@@ -8,7 +8,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* padding: 0 !important; */
     margin: 0 !important;
     cursor: pointer;
 }
@@ -38,8 +37,9 @@
     align-items: center; /* Added align-items: center */
 }
 
-@media (max-width: 400px) {
-    .searchListImage{
-        max-height: 200px;
+@media (max-width: 500px) {
+    .cardBody{
+        padding: 0 !important;
+        max-height: 200px !important;
     }
   }

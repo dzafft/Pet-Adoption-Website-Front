@@ -49,3 +49,11 @@ html, body{
     }
     
   }
+
+
+  @media (max-width: 499px) {
+    .specificPetImage{
+        height: 300px;
+    }
+    
+  }

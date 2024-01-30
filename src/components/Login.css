@@ -1,4 +1,9 @@
-.loginContainer{
-    width: 50%;
-    margin: 10px auto;
+.loginContainer {
+    width: 80%; /* Set a percentage width for responsiveness */
+    margin: 5vh auto; /* Use viewport height (vh) for vertical centering and auto for horizontal centering */
+    box-sizing: border-box;
+}
+
+.loginButton{
+    margin-top: 2rem;
 }

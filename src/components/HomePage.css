@@ -26,7 +26,8 @@
 
 .petUlHomepage{
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
+    gap: 16px;
     padding-left: 2%;
     padding-right: 2%;
 
@@ -73,5 +74,7 @@
 
 
 .availablePetsTitle{
+    margin-top: 2%;
     margin-bottom: 2%;
+    text-align: center;
 }

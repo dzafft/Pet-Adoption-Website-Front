@@ -23,7 +23,7 @@
 
 .accountFosteredPetsUl{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
     padding: 0;
     margin-top: 2%;
 }
@@ -35,7 +35,7 @@
 
 .accountSavedPetsUl{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
     padding: 0;
     margin-top: 2%;
 }

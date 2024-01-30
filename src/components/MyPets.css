@@ -6,18 +6,21 @@
 }
 
 .adoptedList{
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
 }
 
 .fosteredList{
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
 }
 
 .savedList{
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
 }
 
 .myPetsImage{

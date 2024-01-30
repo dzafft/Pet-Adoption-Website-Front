@@ -147,3 +147,7 @@
 .menuButton{
     margin-left: 2%;
 }
+
+@media only screen and (max-width: 400px) {
+    
+  }

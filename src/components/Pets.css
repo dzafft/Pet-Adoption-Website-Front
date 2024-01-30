@@ -1,40 +1,37 @@
-
-
-
-
-
-.petCard{
+.petCard {
     list-style-type: none;
-    margin: 0 5px 0 15px;
-    height: 70%;
+    height: 100%; /* Adjusted height to 100% */
 }
 
-.cardBody{
-    height: 10px;
+.cardBody {
+    height: auto; /* Adjusted height to auto */
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    
 }
 
-.heartContainer{
+.heartContainer {
     display: flex;
     align-self: flex-end;
 }
 
-.petUl{
+.petUl {
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed to auto-fill and added minmax */
+    grid-gap: 16px; /* Optional: Add some gap between grid items */
 }
 
-.searchListImage{
-    border-radius: none;
-    height: 50%;
-    border-radius: 50%;
+.searchListImage {
+    border-radius: 50%; /* Only one border-radius property is needed */
+    height: 100%; /* Adjusted height to 100% */
+    object-fit: cover; /* Ensure the image covers the entire container */
 }
 
-.spinner-border{
+.spinner-border {
+    display: flex; /* Added display: flex to center the spinner */
     justify-content: center;
+    align-items: center; /* Added align-items: center */
 }

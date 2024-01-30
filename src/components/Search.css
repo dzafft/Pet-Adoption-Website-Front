@@ -17,9 +17,6 @@
     cursor: pointer;
 }   
 
-.petTypeLabel{
-    margin-right: 5px;
-}
 
 .regularSearch{
     display: flex;
@@ -46,15 +43,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 70%;
-}
-
-
-
-.advancedSearchTop > *{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
 }
 
@@ -68,12 +56,6 @@
 }
 
 
-
-.labelForName, .labelForadoptionStatus{
-    margin-right: 2%;
-
-}
-
 .petNameInput::placeholder{
     color: lightcoral;
 }
@@ -82,10 +64,21 @@
     width: 450px;
 }
 
-
+.labelForStatusContainer{
+    margin-left: 3%;
+}
 
 .searchButton{
     margin-top: 25px;
     margin-bottom: 25px;
-
 }
+
+@media (max-width: 550px) {
+    .advancedSearchTop{
+        flex-direction: column;
+    }
+    .labelForStatusContainer{
+        margin: 0;
+        margin-top: 5%;
+    }
+  }
